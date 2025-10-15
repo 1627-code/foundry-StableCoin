@@ -75,19 +75,24 @@ All **unit and invariant tests** were written using **Foundry (Forge)**.
 ### 1️⃣ Install Dependencies
 ```bash
 forge install
+```
 
 ### 🏗️ Build
 ```bash
 forge build
+```
 
 ### 🧪 Run Tests
 ```bash
 forge test
+```
 
 ### 📈 Run Coverage
 ```bash
 forge coverage
+```
 
+---
 
 ## 🧠 Learnings & Challenges
 
@@ -97,11 +102,15 @@ forge coverage
 
 - Understanding the link between collateral ratios and stablecoin supply stability
 
+---
+
 ## 🙏 Acknowledgments
 
 Patrick Collins — for the incredible Foundry DeFi Stablecoin course that inspired this build.
 
 ChatGPT (GPT-5) — for reasoning through code, debugging errors, and extending test logic.
+
+---
 
 ## 📂 Repository Stats
 
@@ -112,6 +121,8 @@ ChatGPT (GPT-5) — for reasoning through code, debugging errors, and extending 
 | ✅ Passed| 75/75 |
 | ⚙️ Coverage | 91%+ |
 | 🧩 Solidity Version | ^0.8.18 |
+
+---
 
 ## 📬 Contact
 
