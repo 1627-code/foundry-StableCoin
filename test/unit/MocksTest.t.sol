@@ -10,7 +10,6 @@ import {MockMoreDebtDSC} from "../mocks/MockMoreDebtDSC.sol";
 import {MockV3Aggregator} from "../mocks/MockV3Aggregator.sol";
 import {ERC20Mock} from "../mocks/ERC20Mocks.sol";
 
-
 contract MocksTest is Test {
     MockFailedMintDSC mockMintFail;
     MockFailedTransfer mockTransferFail;
@@ -28,7 +27,6 @@ contract MocksTest is Test {
     address owner = makeAddr("owner");
     address user = makeAddr("user");
 
-
     function setUp() public {
         vm.startPrank(owner);
         mockMintFail = new MockFailedMintDSC();
@@ -38,7 +36,6 @@ contract MocksTest is Test {
         mockAggregator = new MockV3Aggregator(DECIMALS, INITIAL_ANSWER);
         erc20Mock = new ERC20Mock("Mock Token", "MTK", msg.sender, uint256(INITIAL_ANSWER));
         vm.stopPrank();
-        
     }
 
     // MockFailedMintDSC tests
@@ -72,7 +69,7 @@ contract MocksTest is Test {
         uint256 afterBalance = mockTransferFail.balanceOf(owner);
         assert(afterBalance > ZERO_AMOUNT);
     }
-    
+
     function testMockFailedBurnRevertsIfAmountPassedIsZero() public {
         vm.startPrank(owner);
         vm.expectRevert(MockFailedTransfer.DecentralizedStableCoin__AmountMustBeMoreThanZero.selector);
@@ -80,6 +77,7 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
     // Test: Reverts if balance < amount
+
     function testMockFailedBurnRevertsIfBalanceIsLessThanAmount() public {
         vm.startPrank(owner);
         // Owner balance is 0 initially
@@ -87,14 +85,13 @@ contract MocksTest is Test {
         mockMintFail.burn(amountToBurn); // Attempt to burn more than balance
         vm.stopPrank();
     }
+
     function testMockFailedBurnFailsIfNotOwner() public {
         vm.startPrank(user);
         vm.expectRevert("Ownable: caller is not the owner");
         mockMintFail.burn(amountToBurn);
         vm.stopPrank();
     }
-
-
 
     // mockFailedTransfer test
     function test_MockFailedTransferFails() public {
@@ -109,6 +106,7 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
     // Test: Reverts if balance < amount
+
     function testtransFerFailsBurnRevertsIfBalanceIsLessThanAmount() public {
         vm.startPrank(owner);
         // Owner balance is 0 initially
@@ -138,7 +136,6 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
 
-
     // transFrom Functions
     function test_MockFailedTransferFromFails() public {
         vm.expectRevert(MockFailedTransferFrom.DSCEngine__TransferFailed.selector);
@@ -152,6 +149,7 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
     // Test: Reverts if balance < amount
+
     function testtransFerFromFailsBurnRevertsIfBalanceIsLessThanAmount() public {
         vm.startPrank(owner);
         // Owner balance is 0 initially
@@ -165,14 +163,12 @@ contract MocksTest is Test {
         vm.startPrank(owner);
         mockTransferFromFail.mint(owner, amountToMint);
         uint256 beforeBalance = mockTransferFromFail.balanceOf(owner);
-        mockTransferFromFail.burn( amountToBurn);
+        mockTransferFromFail.burn(amountToBurn);
         uint256 afterBalance = mockTransferFromFail.balanceOf(owner);
         vm.stopPrank();
 
         assertEq(afterBalance, beforeBalance - amountToBurn, "Burn did not reduce balance correctly");
     }
-
-
 
     // MockMoreDebt Tests
     function test_MockMoreDebtDSCAlwaysFailsIfOverDebt() public {
@@ -206,7 +202,7 @@ contract MocksTest is Test {
         uint256 afterBalance = mockMoreDebt.balanceOf(owner);
         assert(afterBalance > ZERO_AMOUNT);
     }
-    
+
     function testMockMoreDebtFailedBurnRevertsIfAmountPassedIsZero() public {
         vm.startPrank(owner);
         vm.expectRevert();
@@ -214,6 +210,7 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
     // Test: Reverts if balance < amount
+
     function testMockMoreDebtFailedBurnRevertsIfBalanceIsLessThanAmount() public {
         vm.startPrank(owner);
         // Owner balance is 0 initially
@@ -221,6 +218,7 @@ contract MocksTest is Test {
         mockMoreDebt.burn(amountToBurn); // Attempt to burn more than balance
         vm.stopPrank();
     }
+
     function testMockMoreDebtFailedBurnFailsIfNotOwner() public {
         vm.startPrank(user);
         vm.expectRevert("Ownable: caller is not the owner");
@@ -228,14 +226,13 @@ contract MocksTest is Test {
         vm.stopPrank();
     }
 
-
     function test_ERC20MockMintAndBalance() public {
         uint256 balanceBeforeMint = erc20Mock.balanceOf(address(owner));
         erc20Mock.mint(owner, amountToMint);
         uint256 balanceAfterMint = erc20Mock.balanceOf(address(owner));
         assertEq(balanceBeforeMint, ZERO_AMOUNT);
         assert(balanceBeforeMint != balanceAfterMint);
-        assertEq(balanceAfterMint, amountToMint);     
+        assertEq(balanceAfterMint, amountToMint);
     }
 
     function testErc20MockBurnSuccessWhenBalanceIsEnough() public {
@@ -249,12 +246,10 @@ contract MocksTest is Test {
         assertEq(afterBalance, beforeBalance - amountToBurn, "Burn did not reduce balance correctly");
     }
 
-
     function test_MockAggregatorReturnsLatestRound() public {
         (, int256 answer,,,) = mockAggregator.latestRoundData();
         assertEq(answer, 1000e8);
     }
-
 
     function testConstructorInitializesCorrectly() public {
         assertEq(mockAggregator.decimals(), DECIMALS);
@@ -322,18 +317,12 @@ contract MocksTest is Test {
         mockAggregator.updateAnswer(999e8);
         mockAggregator.updateAnswer(888e8);
 
-        (
-            uint80 roundId,
-            int256 answer,
-            uint256 startedAt,
-            uint256 updatedAt,
-            uint80 answeredInRound
-        ) = mockAggregator.latestRoundData();
+        (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound) =
+            mockAggregator.latestRoundData();
 
         assertEq(answer, 888e8);
         assertEq(roundId, answeredInRound);
         assertEq(updatedAt, mockAggregator.getTimestamp(roundId));
         assertEq(startedAt, mockAggregator.getTimestamp(roundId)); // startedAt mirrors timestamp in updateAnswer()
     }
-
 }

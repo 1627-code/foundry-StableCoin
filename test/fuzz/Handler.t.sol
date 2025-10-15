@@ -21,7 +21,6 @@ contract Handler is Test {
     ERC20Mock weth;
     ERC20Mock wbtc;
 
-    
     uint256 public timesMintIsCalled;
     address[] public usersWithCollateralDeposited;
     MockV3Aggregator public ethUsdPriceFeed;
@@ -36,8 +35,7 @@ contract Handler is Test {
         weth = ERC20Mock(collateralTokens[0]);
         wbtc = ERC20Mock(collateralTokens[1]);
 
-    ethUsdPriceFeed = MockV3Aggregator(engine.getCollateralTokenPriceFeed(address(weth)));
-
+        ethUsdPriceFeed = MockV3Aggregator(engine.getCollateralTokenPriceFeed(address(weth)));
     }
 
     // redeem collateral
@@ -51,19 +49,18 @@ contract Handler is Test {
         collateral.approve(address(engine), amountCollateral);
         engine.depositCollateral(address(collateral), amountCollateral);
         vm.stopPrank();
-        // double push 
+        // double push
         usersWithCollateralDeposited.push(msg.sender);
     }
 
     function redeemCollateral(uint256 collateralSeed, uint256 amountCollateral) public {
         ERC20Mock collateral = _getCollateralFromSeed(collateralSeed);
-        uint256 maxCollateralToRedeem = engine.getCollateralBalanceOfUser(address (collateral), msg.sender);
+        uint256 maxCollateralToRedeem = engine.getCollateralBalanceOfUser(address(collateral), msg.sender);
         amountCollateral = bound(amountCollateral, 0, maxCollateralToRedeem);
         if (amountCollateral == 0) {
             return;
         }
-        engine.redeemCollateral(address (collateral), amountCollateral);
-
+        engine.redeemCollateral(address(collateral), amountCollateral);
     }
 
     function mintDsc(uint256 amount, uint256 addressSeed) public {
@@ -85,7 +82,6 @@ contract Handler is Test {
         engine.mintDsc(amount);
         vm.stopPrank();
         timesMintIsCalled++;
-        
     }
 
     // This breaks our invariant test suite!!!!
@@ -95,7 +91,7 @@ contract Handler is Test {
     // }
 
     // Helper Functions
-    function _getCollateralFromSeed(uint256 collateralSeed) private view returns(ERC20Mock) {
+    function _getCollateralFromSeed(uint256 collateralSeed) private view returns (ERC20Mock) {
         if (collateralSeed % 2 == 0) {
             return weth;
         }

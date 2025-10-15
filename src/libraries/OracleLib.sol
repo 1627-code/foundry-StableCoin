@@ -12,6 +12,7 @@ import {AggregatorV3Interface} from
  *
  * So if the Chainlink network explodes and you have a lot of money locked in the protocol... too bad.
  */
+
 library OracleLib {
     error OracleLib__StalePrice();
 
@@ -38,4 +39,3 @@ library OracleLib {
         return TIMEOUT;
     }
 }
-

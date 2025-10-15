@@ -19,7 +19,6 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Handler} from "./Handler.t.sol";
 import {ERC20Mock} from "@openzeppelin/contracts/mocks/ERC20Mock.sol";
 
-
 contract OpenInvariantsTest is StdInvariant, Test {
     DeployDSC deployer;
     DSCEngine engine;
@@ -38,7 +37,6 @@ contract OpenInvariantsTest is StdInvariant, Test {
         targetContract(address(handler));
         // ERC20Mock(weth).mint(address(handler), 100e18);
         // ERC20Mock(wbtc).mint(address(handler), 100e18);
-
     }
 
     function invariant_protocolMustHaveMoreValueThanTotalSupply() public view {
@@ -59,7 +57,7 @@ contract OpenInvariantsTest is StdInvariant, Test {
         assert(wethValue + wbtcValue >= totalSupply);
     }
 
-    function invarient_gettersShouldNotRevert() public view{
+    function invarient_gettersShouldNotRevert() public view {
         engine.getAdditionalFeedPrecision();
         engine.getCollateralTokens();
         engine.getLiquidationBonus();
