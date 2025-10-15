@@ -124,10 +124,12 @@ ChatGPT (GPT-5) — for reasoning through code, debugging errors, and extending 
 
 ---
 
-## 📬 Contact
+## 👨‍💻 Author
 
 Built with ❤️ by Ebenezer Evero Ighozino
 
 LinkedIn @https://www.linkedin.com/in/ebenezer-evero-49323b27a/
 
-Twitter/X @https://x.com/BennyEvero
+💬 Twitter/X @https://x.com/BennyEvero
+
+📧 Email @everobennny1627@gmail.com
